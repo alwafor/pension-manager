@@ -1,0 +1,14 @@
+@import '@/assets/styles/vars.scss';
+
+.navbar {
+  display: flex;
+  justify-content: end;
+  &Item {
+    padding: 10px;
+    color: $colorSecondary;
+    text-decoration: none;
+    &:hover {
+      background-color: $colorPrimaryDark;
+    }
+  }
+}
