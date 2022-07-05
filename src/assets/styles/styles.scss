@@ -1,2 +1,6 @@
 @import 'vars.scss';
 @import 'reset.scss';
+
+body {
+  background-color: $colorPrimary;
+}
