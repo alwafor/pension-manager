@@ -1,8 +1,10 @@
 @import 'vars.scss';
 @import 'reset.scss';
+@import 'fonts.scss';
 
 body {
   background-color: $colorPrimary;
+  font-family: 'Montserrat', serif;
 }
 
 .container {
