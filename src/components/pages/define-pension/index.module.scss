@@ -1,0 +1,13 @@
+.definePensionPage {
+  .section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row3 {
+    display: flex;
+    & > *{
+      flex: 0 1 33.3333%;
+    }
+  }
+}
