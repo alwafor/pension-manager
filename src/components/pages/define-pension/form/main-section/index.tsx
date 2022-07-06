@@ -5,6 +5,7 @@ import s from '@/components/pages/define-pension/index.module.scss'
 import FieldBlock from '@/components/ui/field-block'
 import classNames from 'classnames'
 import Button from '@/components/ui/button'
+import {MainFormpartReuse} from '@/components/pages/define-pension/form/main-formpart-reusable'
 
 interface IProps {
   register: Function
@@ -45,43 +46,15 @@ export const MainSection: React.FC<IProps> = ({
 
   return <div className={s.bigRow}>
     <div className={s.bigRowColWide}>
-      <FieldBlock className={s.fieldBlock} title="Фамилия" error={errors.surname?.message}>
-        <input type="text" {...register('surname')} />
-      </FieldBlock>
 
-      <FieldBlock className={s.fieldBlock} title="Имя" error={errors.name?.message}>
-        <input type="text" {...register('name')} />
-      </FieldBlock>
-
-      <FieldBlock className={s.fieldBlock} title="Отчество" error={errors.patronymic?.message}>
-        <input type="text" {...register('patronymic')} />
-      </FieldBlock>
-
-      <div className={s.row3}>
-        <FieldBlock className={s.fieldBlock} title="Возраст" error={errors.age?.message}>
-          <input
-            type="number"
-            {...register('age', {valueAsNumber: true})}
-          />
-        </FieldBlock>
-
-        <FieldBlock className={s.fieldBlock}
-                    title="Стаж работы"
-                    error={errors.workExperience?.message}
-        >
-          <input
-            type="number"
-            {...register('workExperience', {valueAsNumber: true})}
-          />
-        </FieldBlock>
-
-        <FieldBlock className={s.fieldBlock} title="Пол" error={errors.gender?.message}>
-          <select {...register('gender')} defaultValue="М">
-            <option value="М">Мужской</option>
-            <option value="Ж">Женский</option>
-          </select>
-        </FieldBlock>
-      </div>
+      <MainFormpartReuse errors={errors} register={register} fieldsData={{
+        surname: 'surname',
+        name: 'name',
+        patronymic: 'patronymic',
+        gender: 'gender',
+        age: 'age',
+        workExperience: 'workExperience',
+      }}/>
 
       <div className={s.row2}>
         <FieldBlock className={classNames(s.fieldBlock, s.textAlignCenter)} title={'Инвалидность'}>
