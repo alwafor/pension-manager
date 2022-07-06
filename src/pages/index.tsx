@@ -1,33 +1,14 @@
-import {useRef} from 'react'
-import Tesseract from 'tesseract.js'
+import s from '@/components/pages/home/index.module.scss'
+import Link from 'next/link'
+import {sectionsRoutesWithoutMain} from '@/core/routes'
 
-const Home = () => {
-
-  const fileInputRef = useRef<HTMLInputElement>(null)
-
-  const recognizeText = () => {
-    if(!fileInputRef.current || !fileInputRef.current.files?.length) {
-      return
-    }
-    
-    const file = fileInputRef.current.files[0]
-    
-    Tesseract.recognize(file, 'rus', {
-      logger: (m) => console.log(m),
-    }).then(({ data: { text } }) => {
-      console.log(text)
-    })
-  }
-
-  return (
-    <div>
-      <input type="file" ref={fileInputRef}/>
-
-      <button onClick={() => recognizeText()} type="button" id="start">
-        Начать обработку
-      </button>
-    </div>
-  )
+export default function HomePage() {
+  return <div className={s.homePage}>
+    <h1 className={s.title}>Пенсионный фонд</h1>
+      {sectionsRoutesWithoutMain.map(routeData =>
+        <Link key={routeData.href} href={routeData.href}>
+          <a className={s.link}>{routeData.text}</a>
+        </Link>
+      )}
+  </div>
 }
-
-export default Home

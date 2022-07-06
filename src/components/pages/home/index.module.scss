@@ -1,0 +1,30 @@
+@import '@/components/layout/navbar/index.module.scss';
+@import '@/assets/styles/components.scss';
+
+$height: calc(100vh - $navbarHeight);
+
+.homePage {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  height: $height;
+
+  .title {
+    margin-top: 25px;
+    color: white;
+    font-size: 60px;
+
+  }
+
+    .link {
+      margin-top: 50px;
+      @include buttonLikeLink();
+      width: 250px;
+    }
+    //display: flex;
+    //flex-direction: column;
+
+}
