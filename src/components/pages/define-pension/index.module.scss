@@ -2,15 +2,21 @@
 @import '@/assets/styles/components.scss';
 
 .definePensionPage {
-
+  margin-top: 25px;
   padding: 20px 70px;
   background-color: $colorTertiary;
 
-  h2 {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    margin-top: 16px;
     text-align: center;
   }
 
-  input,select {
+  input, select {
     @include inputBase()
   }
 
@@ -22,9 +28,11 @@
   .bigRow {
     display: flex;
     justify-content: space-between;
+
     &ColWide {
       flex-basis: 50%;
     }
+
     &ColNarrow {
       flex-basis: 25%;
 
@@ -32,6 +40,7 @@
         position: relative;
         width: 100%;
         height: 300px;
+
         img {
           position: absolute;
           object-fit: cover;
@@ -50,9 +59,32 @@
     }
   }
 
+  .fieldBlock {
+    padding-top: 8px;
+  }
+
   .flexEvenly {
     display: flex;
     justify-content: space-evenly;
+
+    & > * {
+      width: 40%;
+    }
+  }
+
+  .flexBetween {
+    display: flex;
+    justify-content: space-evenly;
+
+    & > * {
+      width: 40%;
+    }
+  }
+
+  .flexBetween {
+    display: flex;
+    justify-content: space-between;
+
     & > * {
       width: 40%;
     }
@@ -60,14 +92,16 @@
 
   .row3 {
     display: flex;
-    & > *{
+
+    & > * {
       flex: 0 1 33.3333%;
     }
   }
 
   .row2 {
     display: flex;
-    & > *{
+
+    & > * {
       flex-basis: 50%;
     }
   }
@@ -78,15 +112,84 @@
 
   .buttonUnactive {
     background-color: white;
+
+    &:hover {
+      background-color: $colorSecondary;
+    }
+  }
+
+  .buttonActive {
+    background-color: $colorSecondaryDark;
+
     &:hover {
       background-color: $colorSecondaryDark;
     }
   }
 
-  .buttonActive {
+  .buttonSubmit {
+    margin-top: 16px;
+    align-self: center;
+    text-transform: uppercase;
+  }
+
+
+  .fileUploadSection {
+    position: relative;
+    display: flex;
+
+    &Controlls {
+      flex: 0 1 30%;
+
+      & > * + * {
+        margin-top: 16px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    label {
+      display: block;
+    }
+
+    input {
+      width: auto;
+    }
+
+    & > * + * {
+      margin-left: 16px;
+    }
+
+    .loadProgress {
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      resize: none;
+    }
+  }
+
+  .fileUploadInput {
+
     background-color: $colorSecondary;
+    color: black;
+    padding: 7px 20px;
+    text-align: center;
+    border: 0;
+    cursor: pointer;
+
+    user-select: none;
+
     &:hover {
       background-color: $colorSecondaryDark;
     }
+
+    input {
+      display: none;
+    }
+
   }
 }
