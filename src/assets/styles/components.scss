@@ -1,0 +1,15 @@
+@import 'vars.scss';
+
+@mixin buttonLikeLink {
+  background-color: $colorSecondary;
+  color: black;
+
+  padding: 20px;
+
+  text-decoration: none;
+  text-align: center;
+
+  &:hover {
+    background-color: $colorSecondaryDark;
+  }
+}
