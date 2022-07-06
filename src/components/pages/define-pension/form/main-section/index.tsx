@@ -6,6 +6,7 @@ import FieldBlock from '@/components/ui/field-block'
 import classNames from 'classnames'
 import Button from '@/components/ui/button'
 import {MainFormpartReuse} from '@/components/pages/define-pension/form/main-formpart-reusable'
+import MainImagepartReusable from '@/components/pages/define-pension/form/main-imagepart-reusable'
 
 interface IProps {
   register: Function
@@ -36,13 +37,6 @@ export const MainSection: React.FC<IProps> = ({
     setValue('invalidityCertificateText', undefined)
     setImgInvalidityLoadProgress(false)
   }
-
-  // todo implement later
-  const onLoadImageButtonClick = () => {
-    console.log('clicked!')
-  }
-
-  const imgOldMan = `https://avatars.mds.yandex.net/i?id=2f2d0179fbf1ae2244b37d7543a6b66e-5887733-images-thumbs&n=13`
 
   return <div className={s.bigRow}>
     <div className={s.bigRowColWide}>
@@ -94,17 +88,8 @@ export const MainSection: React.FC<IProps> = ({
         </FieldBlock>
       </div>
     </div>
-
     <div className={s.bigRowColNarrow}>
-      <div className={s.imageWrapper}>
-        <img src={imgOldMan} alt="photo"/>
-      </div>
-      <Button
-        className={s.buttonImageUpload}
-        onClick={onLoadImageButtonClick}
-      >
-        Загрузить фотографию
-      </Button>
+      <MainImagepartReusable/>
     </div>
   </div>
 }
