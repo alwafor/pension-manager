@@ -13,3 +13,8 @@
     background-color: $colorSecondaryDark;
   }
 }
+
+@mixin inputBase {
+  height: 30px;
+  width: 100%;
+}
