@@ -1,14 +1,34 @@
 @import '@/assets/styles/vars.scss';
 
+$navbarHeight: 80px;
+
 .navbar {
   display: flex;
-  justify-content: flex-end;
-  &Item {
-    padding: 10px;
-    color: $colorSecondary;
+  justify-content: space-evenly;
+
+  min-height: $navbarHeight;
+
+  background-color: $colorSecondary;
+
+  &Link {
+    padding: 0 10px;
     text-decoration: none;
+    color: black;
+    text-align: center;
+    line-height: $navbarHeight;
     &:hover {
-      background-color: $colorPrimaryDark;
+      color: white;
+      background-color: $colorPrimary;
+    }
+  }
+
+  .elementWithImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 26px;
+      margin-right: 8px;
     }
   }
 }
