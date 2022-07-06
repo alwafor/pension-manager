@@ -33,25 +33,25 @@ export const MainFormpartReuse: React.FC<IProps> = ({register, errors, fieldsDat
     </FieldBlock>
 
     <div className={s.row3}>
-      <FieldBlock className={s.fieldBlock} title="Возраст" error={errors[fieldsData.gender]?.message}>
-        <input
-          type="number"
-          {...register(fieldsData.gender, {valueAsNumber: true})}
-        />
-      </FieldBlock>
-
-      <FieldBlock className={s.fieldBlock}
-                  title="Стаж работы"
-                  error={errors[fieldsData.age]?.message}
-      >
+      <FieldBlock className={s.fieldBlock} title="Возраст" error={errors[fieldsData.age]?.message}>
         <input
           type="number"
           {...register(fieldsData.age, {valueAsNumber: true})}
         />
       </FieldBlock>
 
-      <FieldBlock className={s.fieldBlock} title="Пол" error={errors[fieldsData.workExperience]?.message}>
-        <select {...register(fieldsData.workExperience)} defaultValue="М">
+      <FieldBlock className={s.fieldBlock}
+                  title="Стаж работы"
+                  error={errors[fieldsData.workExperience]?.message}
+      >
+        <input
+          type="number"
+          {...register(fieldsData.workExperience, {valueAsNumber: true})}
+        />
+      </FieldBlock>
+
+      <FieldBlock className={s.fieldBlock} title="Пол" error={errors[fieldsData.gender]?.message}>
+        <select {...register(fieldsData.gender)} defaultValue="М">
           <option value="М">Мужской</option>
           <option value="Ж">Женский</option>
         </select>

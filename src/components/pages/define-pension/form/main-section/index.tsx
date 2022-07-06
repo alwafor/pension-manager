@@ -16,7 +16,8 @@ interface IProps {
 
   isInvalidity: boolean
   isLossOfBreadwinner: boolean
-  setImgInvalidityLoadProgress: Function
+  setImgInvalidityLoadProgress: Function,
+  setImgBreadwinnerLoadProgress: Function
 }
 
 export const MainSection: React.FC<IProps> = ({
@@ -25,17 +26,51 @@ export const MainSection: React.FC<IProps> = ({
                                                 errors,
                                                 defineBooleanButtonStyle,
                                                 setImgInvalidityLoadProgress,
+                                                setImgBreadwinnerLoadProgress,
                                                 isInvalidity,
                                                 isLossOfBreadwinner
                                               }) => {
 
-  const setInvalidityFalse = () => {
+  const setDefaultsToInvalidity = () => {
+    setValue('isInvalidity', true)
+
+    setValue('invalidityAge', 16)
+    setValue('invalidityGroup', 'Первая')
+    setValue('invalidityCertificateText', '')
+    setImgInvalidityLoadProgress(false)
+  }
+
+  const invalidateInvalidityFields = () => {
     setValue('isInvalidity', false)
-    // reset invalidity values
+    // invalidate invalidity fields
     setValue('invalidityAge', undefined)
     setValue('invalidityGroup', undefined)
     setValue('invalidityCertificateText', undefined)
-    setImgInvalidityLoadProgress(false)
+    setImgInvalidityLoadProgress(undefined)
+  }
+
+  const setDefaultsToBreadwinner = () => {
+    setValue('isLossOfBreadwinner', true)
+
+    setValue('breadwinnerSurname', '')
+    setValue('breadwinnerName', '')
+    setValue('breadwinnerPatronymic', '')
+    setValue('breadwinnerGender', 'М')
+    setValue('breadwinnerAge', 0)
+    setValue('breadwinnerWorkExperience', 0)
+  }
+
+  const invalidateBreadwinnerFields = () => {
+    setValue('isLossOfBreadwinner', false)
+    // invalidate breadwinner fields
+    setValue('breadwinnerSurname', undefined)
+    setValue('breadwinnerName', undefined)
+    setValue('breadwinnerPatronymic', undefined)
+    setValue('breadwinnerGender', undefined)
+    setValue('breadwinnerAge', undefined)
+    setValue('breadwinnerWorkExperience', undefined)
+
+    setImgBreadwinnerLoadProgress(undefined)
   }
 
   return <div className={s.bigRow}>
@@ -55,13 +90,13 @@ export const MainSection: React.FC<IProps> = ({
           <div className={s.flexEvenly}>
             <Button
               className={defineBooleanButtonStyle(isInvalidity)}
-              onClick={() => setValue('isInvalidity', true)}
+              onClick={setDefaultsToInvalidity}
             >
               Да
             </Button>
             <Button
               className={defineBooleanButtonStyle(!isInvalidity)}
-              onClick={setInvalidityFalse}
+              onClick={invalidateInvalidityFields}
             >
               Нет
             </Button>
@@ -74,13 +109,13 @@ export const MainSection: React.FC<IProps> = ({
           <div className={s.flexEvenly}>
             <Button
               className={defineBooleanButtonStyle(isLossOfBreadwinner)}
-              onClick={() => setValue('isLossOfBreadwinner', true)}
+              onClick={setDefaultsToBreadwinner}
             >
               Да
             </Button>
             <Button
               className={defineBooleanButtonStyle(!isLossOfBreadwinner)}
-              onClick={() => setValue('isLossOfBreadwinner', false)}
+              onClick={invalidateBreadwinnerFields}
             >
               Нет
             </Button>

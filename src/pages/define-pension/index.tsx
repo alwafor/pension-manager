@@ -4,7 +4,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import s from '@/components/pages/define-pension/index.module.scss'
 import z from 'zod'
 import Button from '@/components/ui/button'
-import {RefObject, useMemo, useRef, useState} from 'react'
+import {RefObject, useCallback, useMemo, useRef, useState} from 'react'
 import Tesseract from 'tesseract.js'
 import InvaliditySection from '@/components/pages/define-pension/form/invalidity-section'
 import {MainSection} from '@/components/pages/define-pension/form/main-section'
@@ -31,13 +31,15 @@ export interface IForm {
   invalidityAge: number | undefined
   invalidityCertificateText: string | undefined
 
-  breadwinnerSurname: string
-  breadwinnerName: string
-  breadwinnerPatronymic: string
+  breadwinnerSurname: string | undefined
+  breadwinnerName: string | undefined
+  breadwinnerPatronymic: string | undefined
 
-  breadwinnerGender: 'М' | 'Ж'
-  breadwinnerAge: number
-  breadwinnerWorkExperience: number
+  breadwinnerGender: 'М' | 'Ж' | undefined
+  breadwinnerAge: number | undefined
+  breadwinnerWorkExperience: number | undefined
+
+  breadwinnerCertificateText: string | undefined
 
 }
 
@@ -58,6 +60,7 @@ const validationSchema = z.object({
     .number()
     .min(16, {message: 'Минимальный возраст 16'})
     .max(144, {message: 'Максимальный возраст 144'}),
+
   workExperience: z.number(),
 
   isInvalidity: z.boolean(),
@@ -70,7 +73,27 @@ const validationSchema = z.object({
       .min(16, {message: 'Минимальный возраст 16'})
       .max(144, {message: 'Максимальный возраст 144'})
   ),
-  invalidityCertificateText: z.optional(z.string())
+  invalidityCertificateText: z.optional(z.string().min(10, 'Как минимум 50 символов!')),
+
+  breadwinnerSurname: z.optional(z
+    .string()
+    .min(2, {message: 'Фамилия должна быть больше 2х символов'})),
+
+  breadwinnerName: z.optional(z.string().min(2, {message: 'Имя должно быть больше 2х символов'})),
+
+  breadwinnerPatronymic: z.optional(z
+    .string()
+    .min(2, {message: 'Отчество должно быть больше 2х символов'})),
+
+  breadwinnerGender: z.optional(z.string()),
+
+  breadwinnerAge: z.optional(z
+    .number()
+    .min(16, {message: 'Минимальный возраст 16'})
+    .max(144, {message: 'Максимальный возраст 144'})),
+  breadwinnerWorkExperience: z.optional(z.number()),
+
+  breadwinnerCertificateText: z.optional(z.string().min(10, 'Как минимум 50 символов!')),
 })
 
 export default function DefinePensionPage() {
@@ -79,7 +102,8 @@ export default function DefinePensionPage() {
     handleSubmit,
     setValue,
     watch,
-    formState: {errors}
+    formState: {errors},
+    getValues
   } = useForm<IForm>({
     resolver: zodResolver(validationSchema),
     // todo remove later
@@ -90,11 +114,27 @@ export default function DefinePensionPage() {
 
       gender: 'М',
       age: 25,
-      workExperience: 2
+      workExperience: 2,
+
+      isInvalidity: false,
+      isLossOfBreadwinner: false,
+
+      invalidityGroup: undefined,
+      invalidityAge: undefined,
+      invalidityCertificateText: undefined,
+
+      breadwinnerSurname: undefined,
+      breadwinnerName: undefined,
+      breadwinnerPatronymic: undefined,
+      breadwinnerGender: undefined,
+      breadwinnerAge: undefined,
+      breadwinnerWorkExperience: undefined,
+      breadwinnerCertificateText: undefined
     }
   })
 
   const [imgInvalidityLoadProgress, setImgInvalidityLoadProgress] = useState(0)
+  const [imgBreadwinnerLoadProgress, setImgBreadwinnerLoadProgress] = useState(0)
 
   const isInvalidity = watch('isInvalidity')
   const isLossOfBreadwinner = watch('isLossOfBreadwinner')
@@ -103,8 +143,9 @@ export default function DefinePensionPage() {
     if (bool) return s.buttonActive
     return s.buttonUnactive
   }
-  
-  const onSubmit = (data: IForm) => {
+
+  const onSubmit = (data: IForm) =>{
+    console.log('there')
     console.log(data)
   }
 
@@ -124,30 +165,35 @@ export default function DefinePensionPage() {
     }
   }
 
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const fileImgInvalidityInputRef = useRef<HTMLInputElement>(null)
+  const fileImgBreadwinnerInputRef = useRef<HTMLInputElement>(null)
 
-  const loadStatusInvalidity = useMemo(() => {
-    if (imgInvalidityLoadProgress > 0 && imgInvalidityLoadProgress !== 100) {
-      return imgInvalidityLoadProgress + '%'
-    } else if (imgInvalidityLoadProgress === 100) {
+  const generateImageLoadStatus = useCallback((progress: number) => {
+    if (progress > 0 && progress !== 100) {
+      return progress + '%'
+    } else if (progress === 100) {
       return 'Загрузка успешна!'
     }
-  }, [imgInvalidityLoadProgress])
+  }, [])
 
+  const loadStatusInvalidity = useMemo(() => generateImageLoadStatus(imgInvalidityLoadProgress), [imgInvalidityLoadProgress])
+  const loadStatusBreadwinner = useMemo(() => generateImageLoadStatus(imgBreadwinnerLoadProgress), [imgBreadwinnerLoadProgress])
+  console.log(getValues())
   return (
     <div className={s.definePensionPage}>
       <form onSubmit={(e) => e.preventDefault()}>
         <h1 className={s.title}>Форма заполнения</h1>
 
         <MainSection setImgInvalidityLoadProgress={setImgInvalidityLoadProgress} isInvalidity={isInvalidity}
+                     setImgBreadwinnerLoadProgress={setImgBreadwinnerLoadProgress}
                      isLossOfBreadwinner={isLossOfBreadwinner} setValue={setValue} register={register} errors={errors}
                      defineBooleanButtonStyle={defineBooleanButtonStyle}
         />
 
         {isInvalidity &&
-          <InvaliditySection register={register} ref={fileInputRef} errors={errors}
+          <InvaliditySection register={register} ref={fileImgInvalidityInputRef} errors={errors}
                              recognizeText={
-                               recognizeTextGenerator(fileInputRef,
+                               recognizeTextGenerator(fileImgInvalidityInputRef,
                                  (value: string) => setValue('invalidityCertificateText', value),
                                  (m: any) => {
                                    setImgInvalidityLoadProgress(Math.floor(m.progress * 100))
@@ -156,7 +202,13 @@ export default function DefinePensionPage() {
                              loadStatus={loadStatusInvalidity}
           />}
 
-        {isLossOfBreadwinner && <BreadwinnerSection errors={errors} register={register}/>}
+        {isLossOfBreadwinner && <BreadwinnerSection ref={fileImgBreadwinnerInputRef} loadStatus={loadStatusBreadwinner}  recognizeText={
+          recognizeTextGenerator(fileImgBreadwinnerInputRef,
+            (value: string) => setValue('breadwinnerCertificateText', value),
+            (m: any) => {
+              setImgBreadwinnerLoadProgress(Math.floor(m.progress * 100))
+            })
+        } errors={errors} register={register}/>}
 
         <Button className={s.buttonSubmit} onClick={handleSubmit(onSubmit)}>
           Подтвердить
