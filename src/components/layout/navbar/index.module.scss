@@ -16,7 +16,8 @@ $navbarHeight: 80px;
     color: black;
     text-align: center;
     line-height: $navbarHeight;
-    &:hover {
+
+    &:hover, &Active {
       color: white;
       background-color: $colorPrimary;
     }
@@ -26,6 +27,7 @@ $navbarHeight: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
+
     img {
       width: 26px;
       margin-right: 8px;
