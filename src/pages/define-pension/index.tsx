@@ -8,6 +8,7 @@ import {RefObject, useMemo, useRef, useState} from 'react'
 import Tesseract from 'tesseract.js'
 import InvaliditySection from '@/components/pages/define-pension/form/invalidity-section'
 import {MainSection} from '@/components/pages/define-pension/form/main-section'
+import BreadwinnerSection from '@/components/pages/define-pension/form/breadwinner-section'
 
 export interface IForm {
   surname: string
@@ -29,6 +30,15 @@ export interface IForm {
   invalidityGroup: 'Первая' | 'Вторая/Третья' | undefined
   invalidityAge: number | undefined
   invalidityCertificateText: string | undefined
+
+  breadwinnerSurname: string
+  breadwinnerName: string
+  breadwinnerPatronymic: string
+
+  breadwinnerGender: 'М' | 'Ж'
+  breadwinnerAge: number
+  breadwinnerWorkExperience: number
+
 }
 
 const validationSchema = z.object({
@@ -145,6 +155,8 @@ export default function DefinePensionPage() {
                              }
                              loadStatus={loadStatusInvalidity}
           />}
+
+        {isLossOfBreadwinner && <BreadwinnerSection errors={errors} register={register}/>}
 
         <Button className={s.buttonSubmit} onClick={handleSubmit(onSubmit)}>
           Подтвердить
