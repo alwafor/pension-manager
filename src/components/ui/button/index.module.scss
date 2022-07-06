@@ -1,0 +1,13 @@
+@import "@/assets/styles/vars.scss";
+
+.button {
+  background-color: $colorSecondary;
+  color: black;
+  padding: 7px 20px;
+  text-align: center;
+  border: 0;
+  cursor: pointer;
+  &:hover {
+    background-color: $colorSecondaryDark;
+  }
+}
