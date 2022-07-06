@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import s from './index.module.scss'
 
 interface IProps {
-  children: React.ReactElement
+  children: React.ReactElement | React.ReactElement[]
   title: string
   className?: string
   error?: string
