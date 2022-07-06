@@ -50,12 +50,43 @@
     }
   }
 
-
+  .flexEvenly {
+    display: flex;
+    justify-content: space-evenly;
+    & > * {
+      width: 40%;
+    }
+  }
 
   .row3 {
     display: flex;
     & > *{
       flex: 0 1 33.3333%;
+    }
+  }
+
+  .row2 {
+    display: flex;
+    & > *{
+      flex-basis: 50%;
+    }
+  }
+
+  .textAlignCenter {
+    text-align: center;
+  }
+
+  .buttonUnactive {
+    background-color: white;
+    &:hover {
+      background-color: $colorSecondaryDark;
+    }
+  }
+
+  .buttonActive {
+    background-color: $colorSecondary;
+    &:hover {
+      background-color: $colorSecondaryDark;
     }
   }
 }
