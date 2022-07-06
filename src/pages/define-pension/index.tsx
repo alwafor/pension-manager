@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import s from '@/components/pages/define-pension/index.module.scss'
 import z from 'zod'
 import FieldBlock from '@/components/ui/field-block'
+import Button from '@/components/ui/button'
 
 interface IForm {
   surname: string
@@ -61,55 +62,77 @@ export default function DefinePensionPage() {
     },
   })
 
+  const onLoadImageButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
+  }
+
   const onSubmit = (data: IForm) => {
     console.log(data)
   }
 
+  // todo add custom image behaviour
+  const imgOldMan = `https://avatars.mds.yandex.net/i?id=2f2d0179fbf1ae2244b37d7543a6b66e-5887733-images-thumbs&n=13`
+
   return (
     <div className={s.definePensionPage}>
-      Define pension page
       <form onSubmit={handleSubmit(onSubmit)}>
+
         <section className={s.section}>
-          <FieldBlock title="Фамилия" error={errors.surname?.message}>
-            <input type="text" {...register('surname')} />
-          </FieldBlock>
 
-          <FieldBlock title="Имя" error={errors.name?.message}>
-            <input type="text" {...register('name')} />
-          </FieldBlock>
+          <h2>Форма заполнения</h2>
+          <div className={s.bigRow}>
+            <div className={s.bigRowColWide}>
+              <FieldBlock title="Фамилия" error={errors.surname?.message}>
+                <input type="text" {...register('surname')} />
+              </FieldBlock>
 
-          <FieldBlock title="Отчество" error={errors.patronymic?.message}>
-            <input type="text" {...register('patronymic')} />
-          </FieldBlock>
+              <FieldBlock title="Имя" error={errors.name?.message}>
+                <input type="text" {...register('name')} />
+              </FieldBlock>
 
-          <div className={s.row3}>
-            <FieldBlock title="Возраст" error={errors.age?.message}>
-              <input
-                type="number"
-                {...register('age', { valueAsNumber: true })}
-              />
-            </FieldBlock>
+              <FieldBlock title="Отчество" error={errors.patronymic?.message}>
+                <input type="text" {...register('patronymic')} />
+              </FieldBlock>
 
-            <FieldBlock
-              title="Стаж работы"
-              error={errors.workExperience?.message}
-            >
-              <input
-                type="number"
-                {...register('workExperience', { valueAsNumber: true })}
-              />
-            </FieldBlock>
+              <div className={s.row3}>
+                <FieldBlock title="Возраст" error={errors.age?.message}>
+                  <input
+                    type="number"
+                    {...register('age', { valueAsNumber: true })}
+                  />
+                </FieldBlock>
 
-            <FieldBlock title="Пол" error={errors.gender?.message}>
-              <select {...register('gender')} defaultValue="М">
-                <option value="М">Мужской</option>
-                <option value="Ж">Женский</option>
-              </select>
-            </FieldBlock>
+                <FieldBlock
+                  title="Стаж работы"
+                  error={errors.workExperience?.message}
+                >
+                  <input
+                    type="number"
+                    {...register('workExperience', { valueAsNumber: true })}
+                  />
+                </FieldBlock>
+
+                <FieldBlock title="Пол" error={errors.gender?.message}>
+                  <select {...register('gender')} defaultValue="М">
+                    <option value="М">Мужской</option>
+                    <option value="Ж">Женский</option>
+                  </select>
+                </FieldBlock>
+              </div>
+            </div>
+
+            <div className={s.bigRowColNarrow}>
+              <div className={s.imageWrapper}>
+                <img src={imgOldMan} alt="photo"/>
+              </div>
+              <Button className={s.buttonImageUpload} onClick={onLoadImageButtonClick}>Загрузить фотографию</Button>
+            </div>
           </div>
+
         </section>
 
-        <button>Обработать</button>
+        <Button>Обработать</Button>
       </form>
     </div>
   )

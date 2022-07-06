@@ -1,8 +1,56 @@
+@import '@/assets/styles/vars.scss';
+@import '@/assets/styles/components.scss';
+
 .definePensionPage {
+
+  padding: 20px 70px;
+  background-color: $colorTertiary;
+
+  h2 {
+    text-align: center;
+  }
+
+  input,select {
+    @include inputBase()
+  }
+
   .section {
     display: flex;
     flex-direction: column;
   }
+
+  .bigRow {
+    display: flex;
+    justify-content: space-between;
+    &ColWide {
+      flex-basis: 50%;
+    }
+    &ColNarrow {
+      flex-basis: 25%;
+
+      .imageWrapper {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        img {
+          position: absolute;
+          object-fit: cover;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+
+      .buttonImageUpload {
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+  }
+
+
 
   .row3 {
     display: flex;
