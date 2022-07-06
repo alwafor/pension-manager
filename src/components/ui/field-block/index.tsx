@@ -10,12 +10,12 @@ interface IProps {
 
 export default function FieldBlock({children, title, className, error}: IProps) {
   return (
-    <label className={classNames(s.fieldBlock, className)}>
+    <div className={classNames(s.fieldBlock, className)}>
       <div className={s.title}>
         {title}
       </div>
       {children}
       {error && <div className={s.error}>{error}</div>}
-    </label>
+    </div>
   )
 }
