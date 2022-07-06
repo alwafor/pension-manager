@@ -1,6 +1,6 @@
 import React from 'react'
 import {FieldErrors} from 'react-hook-form'
-import {IForm} from '@/pages/define-pension'
+import {IDefinePensionData} from '@/pages/define-pension'
 import s from '@/components/pages/define-pension/index.module.scss'
 import FieldBlock from '@/components/ui/field-block'
 import classNames from 'classnames'
@@ -10,7 +10,7 @@ import MainImagepartReusable from '@/components/pages/define-pension/form/main-i
 
 interface IProps {
   register: Function
-  errors: FieldErrors<IForm>
+  errors: FieldErrors<IDefinePensionData>
   defineBooleanButtonStyle: Function,
   setValue: Function,
 

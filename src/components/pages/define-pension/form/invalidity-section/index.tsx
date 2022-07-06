@@ -3,12 +3,12 @@ import s from '@/components/pages/define-pension/index.module.scss'
 import FieldBlock from '@/components/ui/field-block'
 import Button from '@/components/ui/button'
 import {FieldErrors} from 'react-hook-form'
-import {IForm} from '@/pages/define-pension'
+import {IDefinePensionData} from '@/pages/define-pension'
 
 interface IProps {
   recognizeText: Function
   register: Function
-  errors: FieldErrors<IForm>
+  errors: FieldErrors<IDefinePensionData>
   loadStatus: string | undefined
 }
 

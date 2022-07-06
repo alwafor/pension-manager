@@ -10,7 +10,9 @@ import InvaliditySection from '@/components/pages/define-pension/form/invalidity
 import {MainSection} from '@/components/pages/define-pension/form/main-section'
 import BreadwinnerSection from '@/components/pages/define-pension/form/breadwinner-section'
 
-export interface IForm {
+export type TInvalidityGroup = 'Первая' | 'Вторая/Третья'
+
+export interface IDefinePensionData {
   surname: string
   name: string
   patronymic: string
@@ -27,19 +29,19 @@ export interface IForm {
   isCulturalWorker: boolean
   isSocialWorker: boolean
 
-  invalidityGroup: 'Первая' | 'Вторая/Третья' | undefined
-  invalidityAge: number | undefined
-  invalidityCertificateText: string | undefined
+  invalidityGroup?: TInvalidityGroup
+  invalidityAge?: number
+  invalidityCertificateText?: string
 
-  breadwinnerSurname: string | undefined
-  breadwinnerName: string | undefined
-  breadwinnerPatronymic: string | undefined
+  breadwinnerSurname?: string
+  breadwinnerName?: string
+  breadwinnerPatronymic?: string
 
-  breadwinnerGender: 'М' | 'Ж' | undefined
-  breadwinnerAge: number | undefined
-  breadwinnerWorkExperience: number | undefined
+  breadwinnerGender?: 'М' | 'Ж'
+  breadwinnerAge?: number
+  breadwinnerWorkExperience?: number
 
-  breadwinnerCertificateText: string | undefined
+  breadwinnerCertificateText?: string
 
 }
 
@@ -104,7 +106,7 @@ export default function DefinePensionPage() {
     watch,
     formState: {errors},
     getValues
-  } = useForm<IForm>({
+  } = useForm<IDefinePensionData>({
     resolver: zodResolver(validationSchema),
     // todo remove later
     defaultValues: {
@@ -144,8 +146,7 @@ export default function DefinePensionPage() {
     return s.buttonUnactive
   }
 
-  const onSubmit = (data: IForm) =>{
-    console.log('there')
+  const onSubmit = (data: IDefinePensionData) =>{
     console.log(data)
   }
 
@@ -178,7 +179,7 @@ export default function DefinePensionPage() {
 
   const loadStatusInvalidity = useMemo(() => generateImageLoadStatus(imgInvalidityLoadProgress), [imgInvalidityLoadProgress])
   const loadStatusBreadwinner = useMemo(() => generateImageLoadStatus(imgBreadwinnerLoadProgress), [imgBreadwinnerLoadProgress])
-  console.log(getValues())
+
   return (
     <div className={s.definePensionPage}>
       <form onSubmit={(e) => e.preventDefault()}>
