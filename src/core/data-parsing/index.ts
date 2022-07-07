@@ -1,7 +1,7 @@
-import {IAvailablePensions, IDefinePensionData, TInvalidityGroup} from '@/core/types'
+import {IAvailablePensions, IClientData, TInvalidityGroup} from '@/core/types'
 
 
-export function definePensionTypes(data: IDefinePensionData): IAvailablePensions {
+export function definePensionTypes(data: IClientData): IAvailablePensions {
 
   const result: IAvailablePensions = {}
 
@@ -19,7 +19,7 @@ export function definePensionTypes(data: IDefinePensionData): IAvailablePensions
       breadwinnerGender,
       breadwinnerAge,
       breadwinnerWorkExperience
-    } = data as Required<IDefinePensionData>
+    } = data as Required<IClientData>
 
     if (breadwinnerWorkExperience >= 15) {
       if (breadwinnerGender === 'М' && breadwinnerAge >= 60) {
@@ -49,7 +49,7 @@ export function definePensionTypes(data: IDefinePensionData): IAvailablePensions
     const {
       invalidityGroup,
       invalidityAge
-    } = data as Required<IDefinePensionData>
+    } = data as Required<IClientData>
 
     if (isValidInvalidity(invalidityGroup, invalidityAge, workExperience)) {
       result.invalidity = true

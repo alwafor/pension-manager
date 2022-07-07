@@ -1,6 +1,6 @@
-import {IDefinePensionData} from '@/core/types'
+import {IClientData} from '@/core/types'
 
-export const formDefaultValues: Partial<IDefinePensionData> = {
+export const formDefaultValues: Partial<IClientData> = {
   surname: 'Зубенко',
   name: 'Михаил',
   patronymic: 'Петрович',

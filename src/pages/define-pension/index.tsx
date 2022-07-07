@@ -9,14 +9,14 @@ import InvaliditySection from '@/components/pages/define-pension/form/invalidity
 import {MainSection} from '@/components/pages/define-pension/form/main-section'
 import BreadwinnerSection from '@/components/pages/define-pension/form/breadwinner-section'
 
-import {IDefinePensionData} from '@/core/types'
+import {IClientData} from '@/core/types'
 
-import {formValidationSchema} from '@/components/pages/define-pension/form/formValidationSchema'
 import {formDefaultValues} from '@/components/pages/define-pension/form/formDefaultValues'
 
 import s from '@/components/pages/define-pension/index.module.scss'
 
 import {definePensionTypes, formDefPensionTypesResString} from '@/core/data-parsing'
+import {definePensionDataValidationSchema} from '@/core/validation/define-pension'
 
 export default function DefinePensionPage() {
   const {
@@ -25,8 +25,8 @@ export default function DefinePensionPage() {
     setValue,
     watch,
     formState: {errors}
-  } = useForm<IDefinePensionData>({
-    resolver: zodResolver(formValidationSchema),
+  } = useForm<IClientData>({
+    resolver: zodResolver(definePensionDataValidationSchema),
     // todo remove later
     defaultValues: formDefaultValues
   })
@@ -43,7 +43,7 @@ export default function DefinePensionPage() {
     return s.buttonUnactive
   }
 
-  const onSubmit = (data: IDefinePensionData) => {
+  const onSubmit = (data: IClientData) => {
     console.log('there')
     const result = definePensionTypes(data)
     const resultString = formDefPensionTypesResString(result)

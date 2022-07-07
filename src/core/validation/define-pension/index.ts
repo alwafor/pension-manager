@@ -1,6 +1,6 @@
 import z from 'zod'
 
-export const formValidationSchema = z.object({
+export const definePensionDataValidationSchema = z.object({
   surname: z
     .string()
     .min(2, {message: 'Фамилия должна быть больше 2х символов'}),

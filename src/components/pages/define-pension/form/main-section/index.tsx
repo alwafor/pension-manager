@@ -6,11 +6,11 @@ import classNames from 'classnames'
 import Button from '@/components/ui/button'
 import {MainFormpartReuse} from '@/components/pages/define-pension/form/main-formpart-reusable'
 import MainImagepartReusable from '@/components/pages/define-pension/form/main-imagepart-reusable'
-import {IDefinePensionData} from '@/core/types'
+import {IClientData} from '@/core/types'
 
 interface IProps {
   register: Function
-  errors: FieldErrors<IDefinePensionData>
+  errors: FieldErrors<IClientData>
   defineBooleanButtonStyle: Function,
   setValue: Function,
 

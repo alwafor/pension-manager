@@ -1,6 +1,6 @@
 export type TInvalidityGroup = 'Первая' | 'Вторая/Третья'
 
-export interface IDefinePensionData {
+export interface IClientData {
   surname: string
   name: string
   patronymic: string

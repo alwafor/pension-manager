@@ -1,39 +1,36 @@
-import {IDefinePensionData} from '@/pages/define-pension'
-import {definePensionTypes, IAvailablePensions, isValidInvalidity} from './index'
+import {definePensionTypes, isValidInvalidity} from './index'
+import {IAvailablePensions, IClientData} from '../types'
 
-const pensionDataForInvalidityAndExperience: IDefinePensionData = {
-    surname: 'Зубенко',
-    name: 'Михаил',
-    patronymic: 'Петрович',
+const pensionDataForInvalidityAndExperience: IClientData = {
+  surname: 'Зубенко',
+  name: 'Михаил',
+  patronymic: 'Петрович',
 
-    gender: 'М',
-    age: 50,
-    workExperience: 30,
+  gender: 'М',
+  age: 50,
+  workExperience: 30,
 
-    isInvalidity: true,
-    isLossOfBreadwinner: false,
+  isInvalidity: true,
+  isLossOfBreadwinner: false,
 
-    isTeacher: true,
-    isHealthWorker: false,
-    isCulturalWorker: false,
-    isSocialWorker: false,
+  profession: 'none',
 
-    invalidityGroup: 'Первая',
-    invalidityAge: 10,
-    invalidityCertificateText: 'eiwj foijew ioffjewoi fjewiofj opiaewwjfp oiewajfopiaewj fpoieaaw',
+  invalidityGroup: 'Первая',
+  invalidityAge: 10,
+  invalidityCertificateText: 'eiwj foijew ioffjewoi fjewiofj opiaewwjfp oiewajfopiaewj fpoieaaw',
 
-    breadwinnerSurname:undefined,
-    breadwinnerName:undefined,
-    breadwinnerPatronymic:undefined,
+  breadwinnerSurname: undefined,
+  breadwinnerName: undefined,
+  breadwinnerPatronymic: undefined,
 
-    breadwinnerGender: undefined,
-    breadwinnerAge:undefined,
-    breadwinnerWorkExperience:undefined,
+  breadwinnerGender: undefined,
+  breadwinnerAge: undefined,
+  breadwinnerWorkExperience: undefined,
 
-    breadwinnerCertificateText:undefined,
+  breadwinnerCertificateText: undefined
 }
 
-const pensionDataBreadwinnerLoss: IDefinePensionData = {
+const pensionDataBreadwinnerLoss: IClientData = {
   surname: 'Зубенко',
   name: 'Михайла',
   patronymic: 'Петровна',
@@ -45,10 +42,7 @@ const pensionDataBreadwinnerLoss: IDefinePensionData = {
   isInvalidity: false,
   isLossOfBreadwinner: true,
 
-  isTeacher: false,
-  isHealthWorker: false,
-  isCulturalWorker: false,
-  isSocialWorker: false,
+  profession: 'none',
 
   invalidityGroup: undefined,
   invalidityAge: undefined,
@@ -62,10 +56,10 @@ const pensionDataBreadwinnerLoss: IDefinePensionData = {
   breadwinnerAge: 70,
   breadwinnerWorkExperience: 40,
 
-  breadwinnerCertificateText: 'jweoijrewoitjaeowpittjewpaoi iowaejtoi ejwatoi jewaopi  tjeawoi  j',
+  breadwinnerCertificateText: 'jweoijrewoitjaeowpittjewpaoi iowaejtoi ejwatoi jewaopi  tjeawoi  j'
 }
 
-const pensionDataAge: IDefinePensionData = {
+const pensionDataAge: IClientData = {
   surname: 'Зубенко',
   name: 'Михайла',
   patronymic: 'Петровна',
@@ -77,10 +71,7 @@ const pensionDataAge: IDefinePensionData = {
   isInvalidity: false,
   isLossOfBreadwinner: false,
 
-  isTeacher: false,
-  isHealthWorker: false,
-  isCulturalWorker: false,
-  isSocialWorker: false,
+  profession: 'none',
 
   invalidityGroup: undefined,
   invalidityAge: undefined,
@@ -94,10 +85,10 @@ const pensionDataAge: IDefinePensionData = {
   breadwinnerAge: 70,
   breadwinnerWorkExperience: 40,
 
-  breadwinnerCertificateText: 'jweoijrewoitjaeowpittjewpaoi iowaejtoi ejwatoi jewaopi  tjeawoi  j',
+  breadwinnerCertificateText: 'jweoijrewoitjaeowpittjewpaoi iowaejtoi ejwatoi jewaopi  tjeawoi  j'
 }
 
-const noPensionData1: IDefinePensionData = {
+const noPensionData1: IClientData = {
   surname: 'Зубенко',
   name: 'Михайла',
   patronymic: 'Петровна',
@@ -109,10 +100,7 @@ const noPensionData1: IDefinePensionData = {
   isInvalidity: true,
   isLossOfBreadwinner: true,
 
-  isTeacher: false,
-  isHealthWorker: false,
-  isCulturalWorker: false,
-  isSocialWorker: false,
+  profession: 'none',
 
   invalidityGroup: 'Первая',
   invalidityAge: 50,
@@ -126,7 +114,7 @@ const noPensionData1: IDefinePensionData = {
   breadwinnerAge: 70,
   breadwinnerWorkExperience: 12,
 
-  breadwinnerCertificateText: 'jweoijrewoitjaeowpittjewpaoi iowaejtoi ejwatoi jewaopi  tjeawoi  j',
+  breadwinnerCertificateText: 'jweoijrewoitjaeowpittjewpaoi iowaejtoi ejwatoi jewaopi  tjeawoi  j'
 }
 
 const invalidityAndExperienceAvailabled: IAvailablePensions = {
