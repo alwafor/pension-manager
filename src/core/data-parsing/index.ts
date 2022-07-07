@@ -125,3 +125,23 @@ export function isValidInvalidity(invalidityGroup: TInvalidityGroup, age: number
   }
   return experience >= 14
 }
+
+export function formDefPensionTypesResString(availablePensions: IAvailablePensions) {
+  const arrayOfPensions = Object.keys(availablePensions)
+  const resultArray = arrayOfPensions.map(pension => {
+    switch (pension) {
+      case 'age':
+        return 'по возрасту'
+      case 'invalidity':
+        return 'по инвалидности'
+      case 'experience':
+        return 'по опыту'
+      case 'breadwinnerLoss':
+        return 'по потере кормильца'
+      default:
+        return null
+    }
+  }).filter(value => value !== null)
+
+  return resultArray.length ? `Доступные типы пенсии для оформления: ${resultArray.join(', ')}` : 'Невозможно оформить пенсию'
+}
