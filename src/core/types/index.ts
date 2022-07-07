@@ -12,10 +12,7 @@ export interface IDefinePensionData {
   isInvalidity: boolean
   isLossOfBreadwinner: boolean
 
-  isTeacher: boolean
-  isHealthWorker: boolean
-  isCulturalWorker: boolean
-  isSocialWorker: boolean
+  profession: 'none' | 'teacher' | 'healthWorker' | 'culturalWorker' | 'socialWorker'
 
   invalidityGroup?: TInvalidityGroup
   invalidityAge?: number

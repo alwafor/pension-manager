@@ -57,10 +57,9 @@ export function definePensionTypes(data: IDefinePensionData): IAvailablePensions
   }
 
   //3
-  if (workExperience >= 25 && (data.isTeacher ||
-    data.isHealthWorker ||
-    data.isCulturalWorker ||
-    data.isSocialWorker)) {
+  const {profession} = data
+
+  if (workExperience >= 25 && (profession !== 'none')) {
     result.experience = true
   }
 

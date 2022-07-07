@@ -8,6 +8,7 @@ export const formDefaultValues: Partial<IDefinePensionData> = {
   gender: 'М',
   age: 25,
   workExperience: 2,
+  profession: 'none',
 
   isInvalidity: false,
   isLossOfBreadwinner: false,

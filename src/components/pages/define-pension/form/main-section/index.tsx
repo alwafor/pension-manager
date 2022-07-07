@@ -1,12 +1,12 @@
 import React from 'react'
 import {FieldErrors} from 'react-hook-form'
-import {IDefinePensionData} from '@/pages/define-pension'
 import s from '@/components/pages/define-pension/index.module.scss'
 import FieldBlock from '@/components/ui/field-block'
 import classNames from 'classnames'
 import Button from '@/components/ui/button'
 import {MainFormpartReuse} from '@/components/pages/define-pension/form/main-formpart-reusable'
 import MainImagepartReusable from '@/components/pages/define-pension/form/main-imagepart-reusable'
+import {IDefinePensionData} from '@/core/types'
 
 interface IProps {
   register: Function
@@ -122,6 +122,17 @@ export const MainSection: React.FC<IProps> = ({
           </div>
         </FieldBlock>
       </div>
+
+      <FieldBlock className={s.fieldBlock} title="Профессия" error={errors.profession?.message}>
+        <select {...register('profession')} defaultValue="none">
+          <option value="none">Ни одной из перечисленных</option>
+          <option value="teacher">Учитель</option>
+          <option value="healthWorker">Мед. работник</option>
+          <option value="culturalWorker">Работник культура</option>
+          <option value="socialWorker">Соц. служащий</option>
+        </select>
+      </FieldBlock>
+
     </div>
     <div className={s.bigRowColNarrow}>
       <MainImagepartReusable/>
