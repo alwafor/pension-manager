@@ -11,6 +11,14 @@
     flex-direction: column;
   }
 
+  .formResult {
+    border: 2px solid black;
+    margin: 10px 0;
+    padding: 10px;
+    color: white;
+    background-color: $colorPrimary;
+  }
+
   .title {
     margin-top: 16px;
     text-align: center;

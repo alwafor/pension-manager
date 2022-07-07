@@ -16,22 +16,7 @@ import {formDefaultValues} from '@/components/pages/define-pension/form/formDefa
 
 import s from '@/components/pages/define-pension/index.module.scss'
 
-  breadwinnerName: z.optional(z.string().min(2, {message: 'Имя должно быть больше 2х символов'})),
-
-  breadwinnerPatronymic: z.optional(z
-    .string()
-    .min(2, {message: 'Отчество должно быть больше 2х символов'})),
-
-  breadwinnerGender: z.optional(z.string()),
-
-  breadwinnerAge: z.optional(z
-    .number()
-    .min(16, {message: 'Минимальный возраст 16'})
-    .max(144, {message: 'Максимальный возраст 144'})),
-  breadwinnerWorkExperience: z.optional(z.number()),
-
-  breadwinnerCertificateText: z.optional(z.string().min(10, 'Как минимум 50 символов!')),
-})
+import {definePensionTypes, formDefPensionTypesResString} from '@/core/data-parsing'
 
 export default function DefinePensionPage() {
   const {
@@ -39,8 +24,7 @@ export default function DefinePensionPage() {
     handleSubmit,
     setValue,
     watch,
-    formState: {errors},
-    getValues
+    formState: {errors}
   } = useForm<IDefinePensionData>({
     resolver: zodResolver(formValidationSchema),
     // todo remove later
@@ -49,6 +33,7 @@ export default function DefinePensionPage() {
 
   const [imgInvalidityLoadProgress, setImgInvalidityLoadProgress] = useState(0)
   const [imgBreadwinnerLoadProgress, setImgBreadwinnerLoadProgress] = useState(0)
+  const [formResult, setFormResult] = useState<string | null>(null)
 
   const isInvalidity = watch('isInvalidity')
   const isLossOfBreadwinner = watch('isLossOfBreadwinner')
@@ -58,8 +43,11 @@ export default function DefinePensionPage() {
     return s.buttonUnactive
   }
 
-  const onSubmit = (data: IDefinePensionData) =>{
-    console.log(data)
+  const onSubmit = (data: IDefinePensionData) => {
+    console.log('there')
+    const result = definePensionTypes(data)
+    const resultString = formDefPensionTypesResString(result)
+    setFormResult(resultString)
   }
 
   const recognizeTextGenerator = (fileInputRef: RefObject<HTMLInputElement>, successCb: (text: string) => any, loggerCb?: any) => {
@@ -115,13 +103,18 @@ export default function DefinePensionPage() {
                              loadStatus={loadStatusInvalidity}
           />}
 
-        {isLossOfBreadwinner && <BreadwinnerSection ref={fileImgBreadwinnerInputRef} loadStatus={loadStatusBreadwinner}  recognizeText={
-          recognizeTextGenerator(fileImgBreadwinnerInputRef,
-            (value: string) => setValue('breadwinnerCertificateText', value),
-            (m: any) => {
-              setImgBreadwinnerLoadProgress(Math.floor(m.progress * 100))
-            })
-        } errors={errors} register={register}/>}
+        {isLossOfBreadwinner &&
+          <BreadwinnerSection ref={fileImgBreadwinnerInputRef} loadStatus={loadStatusBreadwinner} recognizeText={
+            recognizeTextGenerator(fileImgBreadwinnerInputRef,
+              (value: string) => setValue('breadwinnerCertificateText', value),
+              (m: any) => {
+                setImgBreadwinnerLoadProgress(Math.floor(m.progress * 100))
+              })
+          } errors={errors} register={register}/>}
+
+        {!!formResult && <div className={s.formResult}>
+          {formResult}
+        </div>}
 
         <Button className={s.buttonSubmit} onClick={handleSubmit(onSubmit)}>
           Подтвердить
