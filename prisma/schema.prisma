@@ -1,0 +1,39 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id         Int    @id @default(autoincrement())
+  surname    String
+  name       String
+  patronymic String
+
+  gender         String
+  age            Int
+  workExperience Int
+
+  isInvalidity        Boolean
+  isLossOfBreadwinner Boolean
+
+  profession String
+
+  invalidityGroup           String?
+  invalidityAge             Int?
+  invalidityCertificateText String?
+
+  breadwinnerSurname    String?
+  breadwinnerName       String?
+  breadwinnerPatronymic String?
+
+  breadwinnerGender         String?
+  breadwinnerAge            Int?
+  breadwinnerWorkExperience Int?
+
+  breadwinnerCertificateText String?
+}

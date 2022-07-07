@@ -36,3 +36,5 @@ yarn-error.log*
 
 # ignore idea folder
 .idea
+
+**/*.db
