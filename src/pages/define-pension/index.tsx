@@ -1,85 +1,20 @@
 import {useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 
-import s from '@/components/pages/define-pension/index.module.scss'
-import z from 'zod'
-import Button from '@/components/ui/button'
-import {RefObject, useCallback, useMemo, useRef, useState} from 'react'
 import Tesseract from 'tesseract.js'
+
+import {RefObject, useCallback, useMemo, useRef, useState} from 'react'
+import Button from '@/components/ui/button'
 import InvaliditySection from '@/components/pages/define-pension/form/invalidity-section'
 import {MainSection} from '@/components/pages/define-pension/form/main-section'
 import BreadwinnerSection from '@/components/pages/define-pension/form/breadwinner-section'
 
-export type TInvalidityGroup = 'Первая' | 'Вторая/Третья'
+import {IDefinePensionData} from '@/core/types'
 
-export interface IDefinePensionData {
-  surname: string
-  name: string
-  patronymic: string
+import {formValidationSchema} from '@/components/pages/define-pension/form/formValidationSchema'
+import {formDefaultValues} from '@/components/pages/define-pension/form/formDefaultValues'
 
-  gender: 'М' | 'Ж'
-  age: number
-  workExperience: number
-
-  isInvalidity: boolean
-  isLossOfBreadwinner: boolean
-
-  isTeacher: boolean
-  isHealthWorker: boolean
-  isCulturalWorker: boolean
-  isSocialWorker: boolean
-
-  invalidityGroup?: TInvalidityGroup
-  invalidityAge?: number
-  invalidityCertificateText?: string
-
-  breadwinnerSurname?: string
-  breadwinnerName?: string
-  breadwinnerPatronymic?: string
-
-  breadwinnerGender?: 'М' | 'Ж'
-  breadwinnerAge?: number
-  breadwinnerWorkExperience?: number
-
-  breadwinnerCertificateText?: string
-
-}
-
-const validationSchema = z.object({
-  surname: z
-    .string()
-    .min(2, {message: 'Фамилия должна быть больше 2х символов'}),
-
-  name: z.string().min(2, {message: 'Имя должно быть больше 2х символов'}),
-
-  patronymic: z
-    .string()
-    .min(2, {message: 'Отчество должно быть больше 2х символов'}),
-
-  gender: z.string(),
-
-  age: z
-    .number()
-    .min(16, {message: 'Минимальный возраст 16'})
-    .max(144, {message: 'Максимальный возраст 144'}),
-
-  workExperience: z.number(),
-
-  isInvalidity: z.boolean(),
-  isLossOfBreadwinner: z.boolean(),
-
-  invalidityGroup: z.optional(z.string()),
-  invalidityAge: z.optional(
-    z
-      .number()
-      .min(16, {message: 'Минимальный возраст 16'})
-      .max(144, {message: 'Максимальный возраст 144'})
-  ),
-  invalidityCertificateText: z.optional(z.string().min(10, 'Как минимум 50 символов!')),
-
-  breadwinnerSurname: z.optional(z
-    .string()
-    .min(2, {message: 'Фамилия должна быть больше 2х символов'})),
+import s from '@/components/pages/define-pension/index.module.scss'
 
   breadwinnerName: z.optional(z.string().min(2, {message: 'Имя должно быть больше 2х символов'})),
 
@@ -107,32 +42,9 @@ export default function DefinePensionPage() {
     formState: {errors},
     getValues
   } = useForm<IDefinePensionData>({
-    resolver: zodResolver(validationSchema),
+    resolver: zodResolver(formValidationSchema),
     // todo remove later
-    defaultValues: {
-      surname: 'Зубенко',
-      name: 'Михаил',
-      patronymic: 'Петрович',
-
-      gender: 'М',
-      age: 25,
-      workExperience: 2,
-
-      isInvalidity: false,
-      isLossOfBreadwinner: false,
-
-      invalidityGroup: undefined,
-      invalidityAge: undefined,
-      invalidityCertificateText: undefined,
-
-      breadwinnerSurname: undefined,
-      breadwinnerName: undefined,
-      breadwinnerPatronymic: undefined,
-      breadwinnerGender: undefined,
-      breadwinnerAge: undefined,
-      breadwinnerWorkExperience: undefined,
-      breadwinnerCertificateText: undefined
-    }
+    defaultValues: formDefaultValues
   })
 
   const [imgInvalidityLoadProgress, setImgInvalidityLoadProgress] = useState(0)

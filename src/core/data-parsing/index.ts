@@ -1,13 +1,7 @@
-import {IDefinePensionData, TInvalidityGroup} from '@/pages/define-pension'
+import {IAvailablePensions, IDefinePensionData, TInvalidityGroup} from '@/core/types'
 
-export interface IAvailablePensions {
-  age?: true
-  invalidity?: true
-  experience?: true
-  breadwinnerLoss?: true
-}
 
-export function definePensionTypes(data: IDefinePensionData): any {
+export function definePensionTypes(data: IDefinePensionData): IAvailablePensions {
 
   const result: IAvailablePensions = {}
 
