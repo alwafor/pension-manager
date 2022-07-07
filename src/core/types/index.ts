@@ -14,6 +14,10 @@ export interface IShortClientData {
   isLossOfBreadwinner: boolean
 }
 
+export interface IShortClientDataWithId extends IShortClientData{
+  id: number
+}
+
 export interface IClientData extends IShortClientData {
   profession: 'none' | 'teacher' | 'healthWorker' | 'culturalWorker' | 'socialWorker'
 
@@ -30,6 +34,10 @@ export interface IClientData extends IShortClientData {
   breadwinnerWorkExperience?: number
 
   breadwinnerCertificateText?: string
+}
+
+export interface IClientDataWithId extends IClientData{
+  id: number
 }
 
 export interface IAvailablePensions {

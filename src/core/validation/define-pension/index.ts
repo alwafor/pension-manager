@@ -47,7 +47,7 @@ export const definePensionDataValidationSchema = z.object({
     .optional(
       z
         .string()
-        .min(10, 'Как минимум 50 символов!')
+        .min(50, 'Как минимум 50 символов!')
     ),
 
   breadwinnerSurname: z.optional(z
@@ -76,6 +76,6 @@ export const definePensionDataValidationSchema = z.object({
   breadwinnerCertificateText: z.optional(
     z
       .string()
-      .min(10, 'Как минимум 50 символов!')
+      .min(50, 'Как минимум 50 символов!')
   )
 })

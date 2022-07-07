@@ -43,7 +43,7 @@ const InvaliditySection = React.memo(React.forwardRef<HTMLInputElement, IProps>(
       </FieldBlock>
     </div>
 
-    <FieldBlock className={s.fieldBlock} title="Справка о инвалидности">
+    <FieldBlock className={s.fieldBlock} title="Справка о инвалидности" error={errors.invalidityCertificateText?.message}>
       <div className={s.fileUploadSection}>
         <div className={s.fileUploadSectionControlls}>
           <label className={s.fileUploadInput}>

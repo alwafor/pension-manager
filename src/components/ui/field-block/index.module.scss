@@ -1,9 +1,7 @@
+@import '@/assets/styles/vars.scss';
+
 .fieldBlock {
-  .title {
-
-  }
-
   .error {
-    color: red;
+    color: $colorPrimary;
   }
 }

@@ -1,15 +1,19 @@
-import {IShortClientData, ResultServerResponse} from '@/core/types'
+import {IShortClientDataWithId, ResultServerResponse} from '@/core/types'
 import {prismaClient} from '@/core/backend/prisma'
 import s from '@/components/pages/view-clients/index.module.scss'
+import {useRouter} from 'next/router'
+import Button from '@/components/ui/button'
 
 interface IProps {
   response?: ResultServerResponse
-  clients?: IShortClientData[]
+  clients?: IShortClientDataWithId[]
 }
 
 export default function ViewClientsPage({response, clients}: IProps) {
 
-  if(response) return <div className={s.viewClientsPage}>
+  const router = useRouter()
+
+  if (response) return <div className={s.viewClientsPage}>
     <h2 className={s.title}>Произошла ошибка на сервере! Невозможно получить клиентов!</h2>
   </div>
 
@@ -17,16 +21,20 @@ export default function ViewClientsPage({response, clients}: IProps) {
     <div className={s.viewClientsPage}>
       <h2 className={s.title}>Список клиентов</h2>
       <div className={s.clientsWrapper}>
-        {clients?.map(c => <div key={c.name} className={s.client}>
-          <div>ФИО: {`${c.surname} ${c.name} ${c.patronymic}`}</div>
-          <div>Возраст: {c.age}</div>
-          <div>Пол: {c.gender}</div>
-          <div>Стаж: {c.workExperience}</div>
-          <div>Инвалидность {c.isInvalidity ? ' присутствует' : ' отсутствует'}</div>
-          <div>Потеря кормильца: {c.isLossOfBreadwinner ? ' да' : ' нет'}</div>
-        </div>)}
+        {clients?.map(c =>
+          <Button
+            key={c.id}
+            onClick={() => router.push(`/client-page/${c.id}`)}
+            className={s.client}
+          >
+            <div>ФИО: {`${c.surname} ${c.name} ${c.patronymic}`}</div>
+            <div>Возраст: {c.age}</div>
+            <div>Пол: {c.gender}</div>
+            <div>Стаж: {c.workExperience}</div>
+            <div>Инвалидность {c.isInvalidity ? ' присутствует' : ' отсутствует'}</div>
+            <div>Потеря кормильца: {c.isLossOfBreadwinner ? ' да' : ' нет'}</div>
+          </Button>)}
       </div>
-
     </div>
   )
 }
@@ -38,6 +46,7 @@ export async function getServerSideProps() {
   try {
     clientsData = await prismaClient.client.findMany({
       select: {
+        id: true,
         surname: true,
         name: true,
         patronymic: true,
@@ -59,6 +68,6 @@ export async function getServerSideProps() {
     return {props}
   }
 
-  props.clients = clientsData as IShortClientData[]
+  props.clients = clientsData as IShortClientDataWithId[]
   return {props}
 }
