@@ -1,0 +1,36 @@
+@import '@/assets/styles/vars.scss';
+
+.viewClientsPage {
+  .title {
+    color: white;
+    margin-top: 16px;
+    text-align: center;
+  }
+  .clientsWrapper {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    column-gap: 16px;
+
+    white-space: nowrap;
+    .client {
+      flex: 1 1 30%;
+
+      margin-top: 8px;
+      padding: 10px;
+      background-color: $colorSecondary;
+
+      border: 2px solid black;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: $colorSecondaryDark;
+      }
+
+    }
+  }
+
+}

@@ -1,6 +1,7 @@
 export type TInvalidityGroup = 'Первая' | 'Вторая/Третья'
 
-export interface IClientData {
+// todo provide id here
+export interface IShortClientData {
   surname: string
   name: string
   patronymic: string
@@ -11,7 +12,9 @@ export interface IClientData {
 
   isInvalidity: boolean
   isLossOfBreadwinner: boolean
+}
 
+export interface IClientData extends IShortClientData {
   profession: 'none' | 'teacher' | 'healthWorker' | 'culturalWorker' | 'socialWorker'
 
   invalidityGroup?: TInvalidityGroup
@@ -34,4 +37,10 @@ export interface IAvailablePensions {
   invalidity?: true
   experience?: true
   breadwinnerLoss?: true
+}
+
+//todo add I letter later
+export interface ResultServerResponse {
+  message: string
+  isError?: true
 }

@@ -43,11 +43,21 @@ export default function DefinePensionPage() {
     return s.buttonUnactive
   }
 
-  const onSubmit = (data: IClientData) => {
-    console.log('there')
+  const onSubmit = async (data: IClientData) => {
+
     const result = definePensionTypes(data)
     const resultString = formDefPensionTypesResString(result)
     setFormResult(resultString)
+
+    if(Object.keys(result).length !== 0) {
+      const response = await fetch('/api/client/create-one', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {'Content-type': 'application/json'}
+      })
+      const responseData = await response.json()
+      console.log(responseData)
+    }
   }
 
   const recognizeTextGenerator = (fileInputRef: RefObject<HTMLInputElement>, successCb: (text: string) => any, loggerCb?: any) => {
